@@ -23,13 +23,22 @@ function onFormSubmit(event) {
     localStorage.removeItem(FEEDBACK_FORM_STATE);
 
     console.log(storage);    
+    clearStorage(storage);    
 }
 
 function updatePage() {
     const storageString = localStorage.getItem(FEEDBACK_FORM_STATE);
     if (storageString) {
         storage = JSON.parse(storageString);
-        inputRef.value = storage['email'];
-        textRef.value = storage['message'];
+        inputRef.value = storage.hasOwnProperty('email')?storage['email']:'';
+        textRef.value = storage.hasOwnProperty('message')?storage['message']:'';
+    }
+}
+
+function clearStorage(obj){
+    for (const key in obj) {
+        if (Object.hasOwnProperty.call(obj, key)) {
+            obj[key] = '';        
+        }
     }
 }
